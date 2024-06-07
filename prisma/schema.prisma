@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String        @id @default(cuid())
+  name            String?
+  email           String        @unique
+  password        String?
+  emailVerified   DateTime?
+  emailVerifToken String?
+  image           String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  accounts        Account[]
+  sessions        Session[]
+   limitId       String @unique
+  user         Limitation     @relation(fields: [limitId], references: [id], onDelete: Cascade)
+  monitoring Monitoring[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum CategoryFish {
+  Lele
+  Gurame
+  Arwana
+}
+
+model Limitation {
+  id String @id @default(cuid())
+  name CategoryFish 
+  maxPh Float
+  minPh Float
+  maxTemperature Float
+  minTemperature Float
+  user User?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  monitor Monitoring[]
+}
+
+model Monitoring {
+  id  String        @id @default(cuid())
+  phAir String
+  suhuAir String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  limitId String
+  limit         Limitation     @relation(fields: [limitId], references: [id], onDelete: Cascade)
+}
