@@ -14,11 +14,11 @@ interface User {
 	name: string | null;
 	image: string | null;
 
-	children1: React.ReactNode;
+	
 	children2: React.ReactNode;
 }
 
-const DropdownUser = ({ name, children1, children2, image }: User) => {
+const DropdownUser = ({ name,  children2, image }: User) => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 
 	console.log(image, "oawdkoado");
@@ -107,14 +107,14 @@ const DropdownUser = ({ name, children1, children2, image }: User) => {
 							My Profile
 						</Link>
 					</li>
-					<li>
+					{/* <li>
 						<Dialog>
 							<DialogTrigger className='flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base'>
 								My Contacts
 							</DialogTrigger>
 							<DialogContent>{children1}</DialogContent>
 						</Dialog>
-					</li>
+					</li> */}
 				</ul>
 				<button className='flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base'>
 					{children2}

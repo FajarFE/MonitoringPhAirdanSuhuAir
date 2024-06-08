@@ -3,8 +3,7 @@
 import { auth, signOut } from "@/libs/auth";
 import prisma from "@/libs/db";
 import DefaultLayout from "./DefaultLayout";
-import { Contact } from "../contact";
-import { CreateContact } from "../createContact";
+
 
 export const Layout = async ({ children }: { children: React.ReactNode }) => {
 	const user = await auth();
@@ -17,15 +16,13 @@ export const Layout = async ({ children }: { children: React.ReactNode }) => {
 		},
 	});
 
-	const contactData = await prisma.myContact.findMany({
-		select: { message: true, numberPhone: true, id: true },
-	});
+
 
 	return (
 		<>
 			<DefaultLayout
 				childrenMain={children}
-				children1={<CreateContact contact={contactData ?? []} />}
+			
 				image={userData?.image ?? "image"}
 				children2={
 					<form

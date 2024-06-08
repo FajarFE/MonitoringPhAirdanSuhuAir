@@ -20,7 +20,7 @@ model User {
   accounts        Account[]
   sessions        Session[]
    limitId       String @unique
-  user         Limitation     @relation(fields: [limitId], references: [id], onDelete: Cascade)
+  limitations         Limitation     @relation(fields: [limitId], references: [id], onDelete: Cascade)
   monitoring Monitoring[]
 }
 

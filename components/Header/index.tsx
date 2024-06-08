@@ -8,7 +8,7 @@ import Image from "next/image";
 const Header = (props: {
 	sidebarOpen: string | boolean | undefined;
 	setSidebarOpen: (arg0: boolean) => void;
-	children1: React.ReactNode;
+	
 	children2: React.ReactNode;
 	image: string | null;
 	name: string | null;
@@ -110,7 +110,7 @@ const Header = (props: {
 					<DropdownUser
 						image={props.image}
 						name={props.name}
-						children1={props.children1}
+						
 						children2={props.children2}
 					/>
 				</div>
